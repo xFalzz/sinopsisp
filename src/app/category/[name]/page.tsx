@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
+import Image from 'next/image';
 
 // Data dummy yang lebih baik dengan gambar placeholder
 const dummyPosts = [
@@ -73,11 +74,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             className="card p-4 flex flex-col gap-2 hover:shadow-lg transition-shadow overflow-hidden"
           >
             {post.cover && (
-              <img
-                src={post.cover}
-                alt={post.title}
-                className="w-full h-40 object-cover "
-              />
+              <div className="relative w-full h-40">
+                <Image
+                  src={post.cover}
+                  alt={post.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              </div>
             )}
             
             <div className="p-2 flex flex-col gap-2">

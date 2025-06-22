@@ -11,8 +11,6 @@ export default async function MovieDetailPage({ params }: { params: { id: string
 
   if (!movie || movie.success === false) return notFound();
 
-  const currentUrl = `https://sinopsisp.vercel.app/movie/${movie.id}`;
-
   return (
     <PageTransition>
       <div className="relative h-[50vh] min-h-[400px] w-full">
