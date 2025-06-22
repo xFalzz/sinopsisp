@@ -32,7 +32,7 @@ const dummyPosts = [
   }
 ];
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   const categories = [...new Set(dummyPosts.map((post) => post.category))];
   return categories.map((category) => ({
     name: category.toLowerCase(),
