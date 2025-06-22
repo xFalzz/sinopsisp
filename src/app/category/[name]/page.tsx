@@ -1,4 +1,3 @@
-
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { format } from 'date-fns';
@@ -12,15 +11,15 @@ const dummyPosts = [
     excerpt: 'Christopher Nolan membawa kita ke dalam dunia mimpi yang kompleks dan menantang logika.',
     category: 'Review',
     date: '2025-06-22',
-    cover: 'https://image.tmdb.org/t/p/w1280/8I37V9j0gIKr8oG2v2T4zLq4tI.jpg'
+    cover: 'https://image.tmdb.org/t/p/w1280/8I37V9j0gIKr8oG2v2T4zLq4tI.jpg' // Inception backdrop
   },
   {
-    slug: 'korean-cinema-insight',
+    slug: 'korean-cinema-insight', 
     title: 'The Rise of Korean Cinema di Era Digital',
     excerpt: 'Bagaimana film Korea berhasil mendominasi pasar global dengan storytelling yang unik.',
     category: 'Insight',
     date: '2025-06-21',
-    cover: 'https://image.tmdb.org/t/p/w1280/pci1Ar3ZyPTa7y2vi4q1znK22iM.jpg'
+    cover: 'https://image.tmdb.org/t/p/w1280/pci1Ar3ZyPTa7y2vi4q1znK22iM.jpg' // Parasite backdrop
   },
   {
     slug: 'dune-part-two-synopsis',
@@ -28,11 +27,11 @@ const dummyPosts = [
     excerpt: 'Denis Villeneuve melanjutkan epik sci-fi yang memukau dengan visual dan narasi yang lebih dalam.',
     category: 'Sinopsis',
     date: '2025-06-20',
-    cover: 'https://image.tmdb.org/t/p/w1280/s1xnjbOIQtwGObPnydTebp74G2c.jpg'
+    cover: 'https://image.tmdb.org/t/p/w1280/s1xnjbOIQtwGObPnydTebp74G2c.jpg' // Dune 2 backdrop
   }
 ];
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   const categories = [...new Set(dummyPosts.map((post) => post.category))];
   return categories.map((category) => ({
     name: category.toLowerCase(),
@@ -84,7 +83,7 @@ export default function Page({ params }: CategoryPageProps) {
                 />
               </div>
             )}
-
+            
             <div className="p-2 flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <span className="bg-accent-yellow text-black px-2 py-1 rounded-full text-xs font-semibold">
@@ -94,11 +93,11 @@ export default function Page({ params }: CategoryPageProps) {
                   {format(new Date(post.date), 'dd MMM yyyy', { locale: id })}
                 </span>
               </div>
-
+              
               <h2 className="text-xl font-semibold line-clamp-2">
                 {post.title}
               </h2>
-
+              
               {post.excerpt && (
                 <p className="text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">
                   {post.excerpt}
@@ -110,4 +109,4 @@ export default function Page({ params }: CategoryPageProps) {
       </div>
     </main>
   );
-}
+} 
