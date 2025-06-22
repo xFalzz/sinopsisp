@@ -10,16 +10,11 @@ import {
   CommandDialog,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
 import { Button } from './ui/button';
 import { useDebounce } from '@/hooks/use-debounce';
-
-function isMovie(item: Movie | Game): item is Movie {
-    return (item as Movie).title !== undefined;
-}
 
 export function SearchDialog() {
   const router = useRouter();

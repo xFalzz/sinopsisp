@@ -21,7 +21,7 @@ export default function TermsPage() {
             <li>use the materials for any commercial purpose, or for any public display (commercial or non-commercial);</li>
             <li>attempt to decompile or reverse engineer any software contained on sinopsisp&apos;s website;</li>
             <li>remove any copyright or other proprietary notations from the materials; or</li>
-            <li>transfer the materials to another person or "mirror" the materials on any other server.</li>
+            <li>transfer the materials to another person or &quot;mirror&quot; the materials on any other server.</li>
           </ul>
 
           <h2>3. Disclaimer</h2>
