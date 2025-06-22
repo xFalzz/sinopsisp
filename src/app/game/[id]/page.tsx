@@ -4,7 +4,17 @@ import { Game } from '@/lib/types';
 import { CommentSection } from '@/components/CommentSection';
 import { SocialShare } from '@/components/SocialShare';
 import { PageTransition } from '@/components/PageTransition';
-import { getGameDetail } from '@/lib/rawg';
+import { getGameDetail, getPopularGames } from '@/lib/rawg';
+
+export async function generateStaticParams() {
+  const games: Game[] = await getPopularGames();
+
+  if (!games) return [];
+
+  return games.map((game) => ({
+    id: game.id.toString(),
+  }));
+}
 
 export default async function GameDetailPage({ params }: { params: { id: string } }) {
   const game: Game = await getGameDetail(params.id);

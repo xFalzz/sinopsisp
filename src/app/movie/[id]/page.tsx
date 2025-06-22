@@ -4,7 +4,17 @@ import { Movie } from '@/lib/types';
 import { CommentSection } from '@/components/CommentSection';
 import { SocialShare } from '@/components/SocialShare';
 import { PageTransition } from '@/components/PageTransition';
-import { getMovieDetail, getBackdropImage, getPosterImage } from '@/lib/tmdb';
+import { getMovieDetail, getBackdropImage, getPosterImage, getPopularMovies } from '@/lib/tmdb';
+
+export async function generateStaticParams() {
+  const movies: Movie[] = await getPopularMovies();
+  
+  if (!movies) return [];
+
+  return movies.map((movie) => ({
+    id: movie.id.toString(),
+  }));
+}
 
 export default async function MovieDetailPage({ params }: { params: { id: string } }) {
   const movie: Movie = await getMovieDetail(params.id);
