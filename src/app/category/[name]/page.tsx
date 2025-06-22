@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
 import Image from 'next/image';
-import { FC } from 'react';
 
 // Data dummy yang lebih baik dengan gambar placeholder
 const dummyPosts = [
@@ -40,11 +39,13 @@ export async function generateStaticParams() {
   }));
 }
 
-interface PageProps {
-  params: { name: string };
-}
+type Props = {
+  params: {
+    name: string;
+  };
+};
 
-const CategoryPage: FC<PageProps> = ({ params }) => {
+export default function CategoryPage({ params }: Props) {
   const categoryName = decodeURIComponent(params.name);
   const posts = dummyPosts.filter(
     (post) => post.category.toLowerCase() === categoryName
@@ -109,6 +110,4 @@ const CategoryPage: FC<PageProps> = ({ params }) => {
       </div>
     </main>
   );
-};
-
-export default CategoryPage; 
+} 
