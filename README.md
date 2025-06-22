@@ -1,9 +1,5 @@
 # Sinopsisp
 
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/80517723/232497643-24151368-1c4a-4779-a759-913212001710.png" alt="sinopsisp Logo" width="120">
-</div>
-
 <p align="center">
   <strong>Analisis & Opini Film, Game, dan Kultur Pop.</strong>
   <br />
