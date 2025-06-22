@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 async function getGithubProfile(username: string) {
   const response = await fetch(`https://api.github.com/users/${username}`);
   if (!response.ok) return null;
@@ -62,7 +64,13 @@ export default async function AboutPage() {
           <>
             <h2 className="mt-12">Tentang Developer</h2>
             <div className="flex items-center gap-6 p-4 border rounded-lg">
-              <img src={githubProfile.avatar_url} alt={githubProfile.name} className="w-24 h-24 rounded-full" />
+              <Image
+                src={githubProfile.avatar_url}
+                alt={githubProfile.name || 'Developer Avatar'}
+                width={96}
+                height={96}
+                className="rounded-full"
+              />
               <div>
                 <h3 className="text-2xl font-bold">{githubProfile.name}</h3>
                 <p className="text-muted-foreground">@{githubProfile.login}</p>

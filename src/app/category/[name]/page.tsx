@@ -32,18 +32,17 @@ const dummyPosts = [
   }
 ];
 
-interface CategoryPageProps {
-  params: {
-    name: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
 export async function generateStaticParams() {
   const categories = [...new Set(dummyPosts.map((post) => post.category))];
   return categories.map((category) => ({
     name: category.toLowerCase(),
   }));
+}
+
+interface CategoryPageProps {
+  params: {
+    name: string;
+  };
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
