@@ -36,6 +36,7 @@ interface CategoryPageProps {
   params: {
     name: string;
   };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateStaticParams() {
