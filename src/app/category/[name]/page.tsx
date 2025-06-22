@@ -39,13 +39,13 @@ export function generateStaticParams() {
   }));
 }
 
-type Props = {
+interface CategoryPageProps {
   params: {
     name: string;
   };
-};
+}
 
-export default function CategoryPage({ params }: Props) {
+export default function Page({ params }: CategoryPageProps) {
   const categoryName = decodeURIComponent(params.name);
   const posts = dummyPosts.filter(
     (post) => post.category.toLowerCase() === categoryName
