@@ -31,7 +31,7 @@ const dummyPosts = [
   }
 ];
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   const categories = [...new Set(dummyPosts.map((post) => post.category))];
   return categories.map((category) => ({
     name: category.toLowerCase(),
@@ -39,13 +39,14 @@ export function generateStaticParams() {
 }
 
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     name: string;
-  };
+  }>;
 }
 
-export default function Page({ params }: CategoryPageProps) {
-  const categoryName = decodeURIComponent(params.name);
+export default async function Page({ params }: CategoryPageProps) {
+  const { name } = await params;
+  const categoryName = decodeURIComponent(name);
   const posts = dummyPosts.filter(
     (post) => post.category.toLowerCase() === categoryName
   );
@@ -109,4 +110,4 @@ export default function Page({ params }: CategoryPageProps) {
       </div>
     </main>
   );
-} 
+}

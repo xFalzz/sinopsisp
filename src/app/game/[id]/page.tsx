@@ -7,17 +7,44 @@ import { PageTransition } from '@/components/PageTransition';
 import { getGameDetail, getPopularGames } from '@/lib/rawg';
 
 export async function generateStaticParams() {
-  const games: Game[] = await getPopularGames();
+  try {
+    const games: Game[] = await getPopularGames();
 
-  if (!games) return [];
+    if (!games || games.length === 0) {
+      // Fallback with some static game IDs if API fails
+      console.warn('No games found from API, using fallback IDs');
+      return [
+        { id: '3498' }, // Grand Theft Auto V
+        { id: '4200' }, // Portal 2
+        { id: '5286' }, // Tomb Raider
+        { id: '13536' }, // Portal
+        { id: '12020' }, // Left 4 Dead 2
+      ];
+    }
 
-  return games.map((game) => ({
-    id: game.id.toString(),
-  }));
+    return games.map((game) => ({
+      id: game.id.toString(),
+    }));
+  } catch (error) {
+    console.error('Error generating static params for games:', error);
+    // Return fallback static IDs
+    return [
+      { id: '3498' },
+      { id: '4200' },
+      { id: '5286' },
+      { id: '13536' },
+      { id: '12020' },
+    ];
+  }
 }
 
-export default async function GameDetailPage({ params }: { params: { id: string } }) {
-  const game: Game = await getGameDetail(params.id);
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function GameDetailPage({ params }: Props) {
+  const { id } = await params;
+  const game: Game = await getGameDetail(id);
 
   if (!game) return notFound();
 
@@ -72,4 +99,4 @@ export default async function GameDetailPage({ params }: { params: { id: string 
       </div>
     </PageTransition>
   );
-} 
+}

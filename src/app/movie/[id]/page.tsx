@@ -7,17 +7,40 @@ import { PageTransition } from '@/components/PageTransition';
 import { getMovieDetail, getBackdropImage, getPosterImage, getPopularMovies } from '@/lib/tmdb';
 
 export async function generateStaticParams() {
-  const movies: Movie[] = await getPopularMovies();
-  
-  if (!movies) return [];
+  try {
+    const movies: Movie[] = await getPopularMovies();
+    
+    if (!movies || movies.length === 0) {
+      // Fallback with some static movie IDs if API fails
+      console.warn('No movies found from API, using fallback IDs');
+      return [
+        { id: '603' }, // The Matrix
+        { id: '13' },  // Forrest Gump  
+        { id: '155' }, // The Dark Knight
+        { id: '550' }, // Fight Club
+        { id: '680' }, // Pulp Fiction
+      ];
+    }
 
-  return movies.map((movie) => ({
-    id: movie.id.toString(),
-  }));
+    return movies.map((movie) => ({
+      id: movie.id.toString(),
+    }));
+  } catch (error) {
+    console.error('Error generating static params for movies:', error);
+    // Return fallback static IDs
+    return [
+      { id: '603' },
+      { id: '13' },
+      { id: '155' },
+      { id: '550' },
+      { id: '680' },
+    ];
+  }
 }
 
-export default async function MovieDetailPage({ params }: { params: { id: string } }) {
-  const movie: Movie = await getMovieDetail(params.id);
+export default async function MovieDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const movie: Movie = await getMovieDetail(id);
 
   if (!movie || movie.success === false) return notFound();
 
@@ -75,4 +98,4 @@ export default async function MovieDetailPage({ params }: { params: { id: string
       </div>
     </PageTransition>
   );
-} 
+}
